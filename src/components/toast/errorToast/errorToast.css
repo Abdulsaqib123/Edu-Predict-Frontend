@@ -1,0 +1,22 @@
+.errorToast {
+  background: #fff !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.errorToast button {
+  opacity: 1;
+  color: #e12e2e;
+}
+
+.errorToast div {
+  font-weight: 500;
+  color: #000;
+  font-size: 15px;
+}
+.errorToast svg {
+  fill: #e12e2e;
+}
+
+.errorToast .Toastify__progress-bar--wrp {
+  background: #fff;
+}

@@ -1,0 +1,18 @@
+.successToast {
+  background: #fff !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.successToast button {
+  opacity: 1;
+  color: green;
+}
+
+.successToast div {
+  font-weight: 500;
+  color: #000;
+  font-size: 15px;
+}
+.successToast svg {
+  fill: green;
+}
