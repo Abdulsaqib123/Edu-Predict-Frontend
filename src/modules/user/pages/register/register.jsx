@@ -1,16 +1,19 @@
 import React, { useContext, useState } from "react";
-import { AuthContext } from "../../../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
 import { validate } from "email-validator";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { UserContext } from "../../../../contexts/UserContext";
 
-const LoginPage = () => {
+const CreateAccountPage = () => {
   const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
+    confirm_password: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const { loading, loginUser } = useContext(AuthContext);
+  const { loading, createUser } = useContext(UserContext);
   const router = useNavigate();
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -22,6 +25,20 @@ const LoginPage = () => {
     let errors = { ...formErrors };
 
     switch (name) {
+      case "first_name":
+        if (!value.trim()) {
+          errors.first_name = "Please input your first name!";
+        } else {
+          delete errors.first_name;
+        }
+        break;
+      case "last_name":
+        if (!value.trim()) {
+          errors.last_name = "Please input your last name!";
+        } else {
+          delete errors.last_name;
+        }
+        break;
       case "email":
         if (!value.trim()) {
           errors.email = "Please input your email!";
@@ -43,6 +60,14 @@ const LoginPage = () => {
           delete errors.password;
         }
         break;
+      case "confirm_password":
+        if (value !== formData.password) {
+          errors.confirm_password =
+            "Please input your correct password don't password matched!";
+        } else {
+          delete errors.confirm_password;
+        }
+        break;
 
       default:
         break;
@@ -53,6 +78,14 @@ const LoginPage = () => {
 
   const handleFormValidation = (data, name = null) => {
     const errors = {};
+
+    if (!data.first_name) {
+      errors.first_name = "Please input your first name!";
+    }
+
+    if (!data.last_name) {
+      errors.last_name = "Please input your last name!";
+    }
 
     if (!data.email) {
       errors.email = "Please input your email!";
@@ -68,6 +101,11 @@ const LoginPage = () => {
       errors.password = "Please input you password character less than 20!";
     }
 
+    if (!data.confirm_password || data.confirm_password !== formData.password) {
+      errors.confirm_password =
+        "Please input your correct password don't password matched!";
+    }
+
     return errors;
   };
 
@@ -78,15 +116,15 @@ const LoginPage = () => {
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       let tempData = {
+        first_name: formData.first_name,
+        last_name: formData.last_name,
         email: formData.email,
         password: formData.password,
+        role: "67587c8e74cea1767a2e0583",
       };
-      const user = await loginUser(tempData);
-
-      if (user && user?.role?._id === "67587c8e74cea1767a2e0581") {
-        router("/admin/dashboard");
-      } else {
-        router("/dashboard");
+      const newUser = await createUser(tempData);
+      if (newUser) {
+        router("/login");
       }
     }
   };
@@ -102,15 +140,57 @@ const LoginPage = () => {
   return (
     <>
       <Helmet>
-        <title>Edutics - Login</title>
+        <title>Edutics - Create Account</title>
       </Helmet>
       <div className="flex items-start justify-center w-full sm:py-56 py-28 pb-20 px-5">
-        <div className="max-w-xl bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
+        <div className="max-w-2xl bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
           <h1 className="text-primaryColor font-bold uppercase sm:text-4xl text-2xl border-b-2 border-primaryColor/55 sm:pb-4 pb-2 sm:mb-6 mb-4">
-            Login Now
+            Create Your Account
           </h1>
           <form action="" method="POST" onSubmit={handleFormSubmit}>
             <div className="sm:space-y-8 space-y-4">
+              <div className="form-group">
+                <label
+                  for="first_name"
+                  className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="first_name"
+                  name="first_name"
+                  className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                  placeholder="First Name..."
+                  onChange={handleInputChange}
+                />
+                {formErrors.first_name && (
+                  <span className="text-red-600 text-sm mt-1 inline-block">
+                    {formErrors.first_name}
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <label
+                  for="last_name"
+                  className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="last_name"
+                  name="last_name"
+                  className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                  placeholder="Last Name..."
+                  onChange={handleInputChange}
+                />
+                {formErrors.last_name && (
+                  <span className="text-red-600 text-sm mt-1 inline-block">
+                    {formErrors.last_name}
+                  </span>
+                )}
+              </div>
               <div className="form-group">
                 <label
                   for="email"
@@ -153,6 +233,27 @@ const LoginPage = () => {
                   </span>
                 )}
               </div>
+              <div className="form-group">
+                <label
+                  for="confirm_password"
+                  className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  id="confirm_password"
+                  name="confirm_password"
+                  className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                  placeholder="********"
+                  onChange={handleInputChange}
+                />
+                {formErrors.confirm_password && (
+                  <span className="text-red-600 text-sm mt-1 inline-block">
+                    {formErrors.confirm_password}
+                  </span>
+                )}
+              </div>
             </div>
             <button
               type="submit"
@@ -179,15 +280,12 @@ const LoginPage = () => {
                   <span class="sr-only">Loading...</span>
                 </div>
               )}
-              {!loading && "Login"}
+              {!loading && "Create Account"}
             </button>
             <p className="text-center text-black sm:text-sm text-xs mt-5">
-              Don't have an account?{" "}
-              <Link
-                to={"/create-account"}
-                className="text-primaryColor font-semibold"
-              >
-                Create Account
+              Already have an account?{" "}
+              <Link to={"/login"} className="text-primaryColor font-semibold">
+                Login Account
               </Link>
             </p>
           </form>
@@ -197,4 +295,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default CreateAccountPage;

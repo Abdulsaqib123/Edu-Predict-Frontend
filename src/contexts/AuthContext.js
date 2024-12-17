@@ -29,11 +29,20 @@ export const AuthContextProvider = ({ children }) => {
 
   const logoutUser = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_ENV}/auth/logout`);
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_ENV}/auth/logout`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       localStorage.removeItem("token");
       localStorage.removeItem("user_id");
       localStorage.removeItem("role");
+      successToast(res?.data?.message);
     } catch (err) {
       console.log(err);
     }

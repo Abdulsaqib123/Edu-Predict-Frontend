@@ -9,6 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 import DashboardLayout from "./components/layouts/dashboardLayout/layout";
 import DashboardPage from "./modules/user/pages/dashboard/dashboard";
 import PrivateRoute from "./privateRoute/privateRoute";
+import CreateAccountPage from "./modules/user/pages/register/register";
+import DashboardDataIngestionPage from "./modules/user/pages/dashboard/dataIngestion/dataIngestion";
+import AdminDashboardLayout from "./components/layouts/adminDashboardLayout/layout";
+import AdminPrivateRoute from "./adminPrivateRoute/adminPrivateRoute";
+import AdminDashboardPage from "./modules/admin/dashboard/dashboard";
+import AdminRolesListPage from "./modules/admin/dashboard/roles/rolesList";
 
 function App() {
   return (
@@ -17,10 +23,26 @@ function App() {
         <Route exact path="/" element={<UserLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/create-account" element={<CreateAccountPage />} />
         </Route>
 
         <Route exact path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<PrivateRoute element={<DashboardPage />} />} />
+          <Route
+            path="data-ingestion"
+            element={<PrivateRoute element={<DashboardDataIngestionPage />} />}
+          />
+        </Route>
+
+        <Route exact path="/admin" element={<AdminDashboardLayout />}>
+          <Route
+            path="dashboard"
+            element={<AdminPrivateRoute element={<AdminDashboardPage />} />}
+          />
+          <Route
+            path="roles"
+            element={<AdminPrivateRoute element={<AdminRolesListPage />} />}
+          />
         </Route>
       </Routes>
       <ToastContainer />

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../contexts/AuthContext";
 
-const DashboardHeader = ({ singleUser, toggleSidebar }) => {
+const AdminDashboardHeader = ({ singleUser, toggleSidebar }) => {
   const { logoutUser } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useNavigate();
@@ -46,7 +46,7 @@ const DashboardHeader = ({ singleUser, toggleSidebar }) => {
                 ></path>
               </svg>
             </button>
-            <Link to={"/dashboard"} className="flex ml-2 md:mr-24">
+            <Link to={"/admin/dashboard"} className="flex ml-2 md:mr-24">
               <img
                 src="/assets/images/brands/logo-light.png"
                 className="h-11 mr-3"
@@ -96,7 +96,7 @@ const DashboardHeader = ({ singleUser, toggleSidebar }) => {
                   <ul className="py-1">
                     <li>
                       <Link
-                        to={"/dashboard"}
+                        to={"/admin/dashboard"}
                         className="block px-4 py-2 text-sm"
                       >
                         Dashboard
@@ -121,4 +121,4 @@ const DashboardHeader = ({ singleUser, toggleSidebar }) => {
   );
 };
 
-export default DashboardHeader;
+export default AdminDashboardHeader;

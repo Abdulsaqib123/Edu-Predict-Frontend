@@ -4,7 +4,7 @@ import { UserContext } from "../../../contexts/UserContext";
 import { useContext, useEffect, useState } from "react";
 import DashboardSidebar from "./sidebar/sidebar";
 
-const DashboardLayout = () => {
+const AdminDashboardLayout = () => {
   const { getSingleUser, singleUser } = useContext(UserContext);
   const user_id = localStorage.getItem("user_id");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -44,4 +44,4 @@ const DashboardLayout = () => {
   );
 };
 
-export default DashboardLayout;
+export default AdminDashboardLayout;
