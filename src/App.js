@@ -15,6 +15,8 @@ import AdminDashboardLayout from "./components/layouts/adminDashboardLayout/layo
 import AdminPrivateRoute from "./adminPrivateRoute/adminPrivateRoute";
 import AdminDashboardPage from "./modules/admin/dashboard/dashboard";
 import AdminRolesListPage from "./modules/admin/dashboard/roles/rolesList";
+import AdminAddRolePage from "./modules/admin/dashboard/roles/addRole";
+import AdminUpdateRolePage from "./modules/admin/dashboard/roles/updateRole";
 
 function App() {
   return (
@@ -42,6 +44,14 @@ function App() {
           <Route
             path="roles"
             element={<AdminPrivateRoute element={<AdminRolesListPage />} />}
+          />
+          <Route
+            path="roles/add"
+            element={<AdminPrivateRoute element={<AdminAddRolePage />} />}
+          />
+          <Route
+            path="roles/edit/:id"
+            element={<AdminPrivateRoute element={<AdminUpdateRolePage />} />}
           />
         </Route>
       </Routes>

@@ -7,6 +7,7 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import { UserContextProvider } from "./contexts/UserContext";
 import { UploadContextProvider } from "./contexts/UploadContext";
 import { SummaryContextProvider } from "./contexts/SummaryContext";
+import { RoleContextProvider } from "./contexts/RoleContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +16,9 @@ root.render(
       <UserContextProvider>
         <UploadContextProvider>
           <SummaryContextProvider>
-            <App />
+            <RoleContextProvider>
+              <App />
+            </RoleContextProvider>
           </SummaryContextProvider>
         </UploadContextProvider>
       </UserContextProvider>

@@ -1,6 +1,15 @@
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { RoleContext } from "../../../../contexts/RoleContext";
 
 const AdminRolesListPage = () => {
+  const { getRolesList, rolesList, loading, deleteRole } =
+    useContext(RoleContext);
+
+  useEffect(() => {
+    getRolesList();
+  }, []);
+
   return (
     <div className="pb-20">
       <div className="flex items-center justify-between mb-20">
@@ -46,18 +55,70 @@ const AdminRolesListPage = () => {
               <th scope="col" class="px-6 py-3">
                 NAME
               </th>
+              <th scope="col" class="px-6 py-3">
+                ACTIONS
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr class="bg-white border-b dark:bg-white dark:border-primaryColor">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td class="px-6 py-4 text-black">Silver</td>
-            </tr>
+            {loading && (
+              <tr>
+                <td
+                  colSpan={2}
+                  className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
+                >
+                  Loading...
+                </td>
+              </tr>
+            )}
+            {rolesList != "" && !loading && (
+              <>
+                {rolesList?.map((role, index) => (
+                  <tr
+                    class="bg-white border-b dark:bg-white dark:border-primaryColor"
+                    key={index}
+                  >
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black"
+                    >
+                      {index + 1}
+                    </th>
+                    <td class="px-6 py-4 text-black">{role?.name}</td>
+                    <td>
+                      <span>
+                        <Link
+                          to={`/admin/roles/edit/${role?._id}`}
+                          className="text-white bg-green-800 hover:bg-green focus:ring-4 focus:outline-none focus:ring-green-800 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green dark:hover:bg-green dark:focus:ring-primaryColor"
+                        >
+                          Update Role
+                        </Link>
+                        <button
+                          type="button"
+                          className="text-white bg-red-800 hover:bg-green focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green dark:hover:bg-green dark:focus:ring-primaryColor"
+                          onClick={async () => {
+                            await deleteRole(role?._id);
+                          }}
+                        >
+                          Delete Role
+                        </button>
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
+
+            {rolesList == "" && !loading && (
+              <tr>
+                <td
+                  colSpan={2}
+                  className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
+                >
+                  No Roles Found!
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
