@@ -64,7 +64,7 @@ const AdminRolesListPage = () => {
             {loading && (
               <tr>
                 <td
-                  colSpan={2}
+                  colSpan={3}
                   className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
                 >
                   Loading...
@@ -112,7 +112,7 @@ const AdminRolesListPage = () => {
             {rolesList == "" && !loading && (
               <tr>
                 <td
-                  colSpan={2}
+                  colSpan={3}
                   className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
                 >
                   No Roles Found!

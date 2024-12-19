@@ -17,6 +17,9 @@ import AdminDashboardPage from "./modules/admin/dashboard/dashboard";
 import AdminRolesListPage from "./modules/admin/dashboard/roles/rolesList";
 import AdminAddRolePage from "./modules/admin/dashboard/roles/addRole";
 import AdminUpdateRolePage from "./modules/admin/dashboard/roles/updateRole";
+import AdminUsersListPage from "./modules/admin/dashboard/users/usersList";
+import AdminAddUserPage from "./modules/admin/dashboard/users/addUser";
+import AdminUpdateUserPage from "./modules/admin/dashboard/users/updateUser";
 
 function App() {
   return (
@@ -52,6 +55,19 @@ function App() {
           <Route
             path="roles/edit/:id"
             element={<AdminPrivateRoute element={<AdminUpdateRolePage />} />}
+          />
+
+          <Route
+            path="users"
+            element={<AdminPrivateRoute element={<AdminUsersListPage />} />}
+          />
+          <Route
+            path="users/add"
+            element={<AdminPrivateRoute element={<AdminAddUserPage />} />}
+          />
+          <Route
+            path="users/edit/:id"
+            element={<AdminPrivateRoute element={<AdminUpdateUserPage />} />}
           />
         </Route>
       </Routes>
