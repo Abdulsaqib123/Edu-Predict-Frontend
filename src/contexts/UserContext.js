@@ -11,11 +11,11 @@ export const UserContextProvider = ({ children }) => {
   const [singleUserLoader, setSingleUserLoader] = useState(false);
   const [singleUser, setSingleUser] = useState(null);
 
-  const getUsersList = async () => {
+  const getUsersList = async (query) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_ENV}/users/index`
+        `${process.env.REACT_APP_BACKEND_ENV}/users/index${query}`
       );
       setUsersList(res?.data.users);
       setLoading(false);
@@ -42,7 +42,7 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
-  const updateUser = async (id , data) => {
+  const updateUser = async (id, data) => {
     setLoading(true);
     try {
       const res = await axios.put(
@@ -58,7 +58,7 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
-  const deleteUser = async (id) => {
+  const deleteUser = async (id, role_id) => {
     setLoading(true);
     try {
       const res = await axios.delete(
@@ -66,7 +66,7 @@ export const UserContextProvider = ({ children }) => {
       );
       setLoading(false);
       successToast(res?.data?.message);
-      getUsersList();
+      getUsersList(`?role_id=${role_id}`);
     } catch (err) {
       errorToast(err.response?.data?.message);
       setLoading(false);

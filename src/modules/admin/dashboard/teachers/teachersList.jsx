@@ -2,12 +2,12 @@ import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../../contexts/UserContext";
 
-const AdminUsersListPage = () => {
+const AdminTeachersListPage = () => {
   const { getUsersList, usersList, loading, deleteUser } =
     useContext(UserContext);
 
   useEffect(() => {
-    getUsersList("?role_id=67587c8e74cea1767a2e0583");
+    getUsersList("?role_id=67587c8e74cea1767a2e0582");
   }, []);
 
   return (
@@ -15,12 +15,12 @@ const AdminUsersListPage = () => {
       <div className="flex items-center justify-between mb-20">
         <div>
           <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg">
-            Students
+            Teachers
           </h1>
         </div>
         <div className="text-right">
           <Link
-            to={"/admin/students/add"}
+            to={"/admin/teachers/add"}
             className="text-white bg-primaryColor hover:bg-primaryColor focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-primaryColor dark:hover:bg-primaryColor dark:focus:ring-primaryColor"
           >
             <svg
@@ -40,7 +40,7 @@ const AdminUsersListPage = () => {
                 d="M5 12h14m-7 7V5"
               />
             </svg>
-            Add Student
+            Add Teacher
           </Link>
         </div>
       </div>
@@ -87,16 +87,16 @@ const AdminUsersListPage = () => {
                     <td>
                       <span>
                         <Link
-                          to={`/admin/students/${user?._id}`}
+                          to={`/admin/teachers/${user?._id}`}
                           className="text-white bg-blue-600 hover:bg-blue focus:ring-4 focus:outline-none focus:ring-blue-600 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green dark:hover:bg-green dark:focus:ring-primaryColor"
                         >
-                          View Student
+                          View Teacher
                         </Link>
                         <Link
-                          to={`/admin/students/edit/${user?._id}`}
+                          to={`/admin/teachers/edit/${user?._id}`}
                           className="text-white bg-green-800 hover:bg-green focus:ring-4 focus:outline-none focus:ring-green-800 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green dark:hover:bg-green dark:focus:ring-primaryColor"
                         >
-                          Update Student
+                          Update Teacher
                         </Link>
                         <button
                           type="button"
@@ -104,11 +104,11 @@ const AdminUsersListPage = () => {
                           onClick={async () => {
                             await deleteUser(
                               user?._id,
-                              "67587c8e74cea1767a2e0583"
+                              "67587c8e74cea1767a2e0582"
                             );
                           }}
                         >
-                          Delete Student
+                          Delete Teacher
                         </button>
                       </span>
                     </td>
@@ -122,7 +122,7 @@ const AdminUsersListPage = () => {
                   colSpan={3}
                   className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
                 >
-                  No Students Found!
+                  No Teachers Found!
                 </td>
               </tr>
             )}
@@ -133,4 +133,4 @@ const AdminUsersListPage = () => {
   );
 };
 
-export default AdminUsersListPage;
+export default AdminTeachersListPage;

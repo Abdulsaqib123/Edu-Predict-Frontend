@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validate } from "email-validator";
 
-const AdminAddUserPage = () => {
+const AdminUpdateTeacherPage = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -11,8 +12,23 @@ const AdminAddUserPage = () => {
     password: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const { loading, createUser } = useContext(UserContext);
+  const { loading, updateUser, getSingleUser, singleUser } =
+    useContext(UserContext);
   const navigation = useNavigate();
+
+  useEffect(() => {
+    getSingleUser(id);
+  }, []);
+
+  useEffect(() => {
+    if (singleUser) {
+      setFormData({
+        first_name: singleUser?.first_name,
+        last_name: singleUser?.last_name,
+        email: singleUser?.email,
+      });
+    }
+  }, [singleUser]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,18 +60,6 @@ const AdminAddUserPage = () => {
           delete errors.email;
         }
         break;
-      case "password":
-        if (!value.trim()) {
-          errors.password = "Please input your password!";
-        } else if (value.length < 8) {
-          errors.password =
-            "Please input you password character greater than 8!";
-        } else if (value.length > 20) {
-          errors.password = "Please input you password character less than 20!";
-        } else {
-          delete errors.password;
-        }
-        break;
       default:
         break;
     }
@@ -80,14 +84,6 @@ const AdminAddUserPage = () => {
       errors.email = "Please input your valid email address!";
     }
 
-    if (!data.password) {
-      errors.password = "Please input your password!";
-    } else if (data.password.length < 8) {
-      errors.password = "Please input you password character greater than 8!";
-    } else if (data.password.length > 20) {
-      errors.password = "Please input you password character less than 20!";
-    }
-
     return errors;
   };
 
@@ -98,23 +94,23 @@ const AdminAddUserPage = () => {
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       let tempData = {
-        role: "67587c8e74cea1767a2e0583",
+        role: "67587c8e74cea1767a2e0582",
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password,
       };
 
-      await createUser(tempData);
+      await updateUser(id, tempData);
 
-      navigation("/admin/students");
+      navigation("/admin/teachers");
     }
   };
 
   return (
     <div className="pb-40">
       <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg mb-6">
-        Create Student
+        Update Teacher
       </h1>
       <div className="bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
         <form onSubmit={handleFormSubmit} method="POST">
@@ -133,6 +129,7 @@ const AdminAddUserPage = () => {
                 className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
                 placeholder="First Name..."
                 onChange={handleInputChange}
+                value={formData.first_name}
               />
               {formErrors.first_name && (
                 <span className="text-red-600 text-sm mt-1 inline-block">
@@ -154,6 +151,7 @@ const AdminAddUserPage = () => {
                 className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
                 placeholder="Last Name..."
                 onChange={handleInputChange}
+                value={formData.last_name}
               />
               {formErrors.last_name && (
                 <span className="text-red-600 text-sm mt-1 inline-block">
@@ -175,6 +173,7 @@ const AdminAddUserPage = () => {
                 className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
                 placeholder="Valid Email Address..."
                 onChange={handleInputChange}
+                value={formData.email}
               />
               {formErrors.email && (
                 <span className="text-red-600 text-sm mt-1 inline-block">
@@ -196,6 +195,7 @@ const AdminAddUserPage = () => {
                 className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
                 placeholder="********"
                 onChange={handleInputChange}
+                value={formData.password}
               />
               {formErrors.password && (
                 <span className="text-red-600 text-sm mt-1 inline-block">
@@ -208,7 +208,7 @@ const AdminAddUserPage = () => {
                 type="submit"
                 className="text-white bg-primaryColor hover:bg-primaryColor focus:ring-4 focus:outline-none focus:ring-primaryColor font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-green dark:hover:bg-green dark:focus:ring-primaryColor"
               >
-                {!loading && "Submit"}
+                {!loading && "Update"}
                 {loading && (
                   <div role="status">
                     <svg
@@ -239,4 +239,4 @@ const AdminAddUserPage = () => {
   );
 };
 
-export default AdminAddUserPage;
+export default AdminUpdateTeacherPage;

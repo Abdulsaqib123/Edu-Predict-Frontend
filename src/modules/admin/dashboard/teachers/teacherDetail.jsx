@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../../../contexts/UserContext";
 import dateFormat from "dateformat";
 
-const AdminUserDetailPage = () => {
+const AdminTeacherDetailPage = () => {
   const { id } = useParams();
 
   const { getSingleUser, singleUser } = useContext(UserContext);
@@ -17,7 +17,7 @@ const AdminUserDetailPage = () => {
       <div className="flex items-center justify-between mb-20">
         <div>
           <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg">
-            Student Detail
+            Teacher Detail
           </h1>
         </div>
       </div>
@@ -59,4 +59,4 @@ const AdminUserDetailPage = () => {
   );
 };
 
-export default AdminUserDetailPage;
+export default AdminTeacherDetailPage;

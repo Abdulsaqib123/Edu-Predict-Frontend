@@ -24,7 +24,7 @@ const AdminDashboardPage = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
               fill="currentColor"
-              className="w-6 h-6 text-gray-500 transition duration-75 dark:text-primaryColor"
+              className="w-6 h-6 text-primaryColor transition duration-75 dark:text-primaryColor"
             >
               <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0z" />
             </svg>
@@ -39,7 +39,7 @@ const AdminDashboardPage = () => {
         <div className="bg-white shadow-lg shadow-primaryColor/20 flex items-center p-4 rounded-lg">
           <div className="icon sm:w-16 w-12 sm:h-16 h-12 bg-primaryColor/15 flex items-center justify-center rounded-full">
             <svg
-              className="w-6 h-6 text-gray-500 transition duration-75 dark:text-primaryColor"
+              className="w-6 h-6 text-primaryColor transition duration-75 dark:text-primaryColor"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 640 512"
               fill="currentColor"
@@ -48,9 +48,31 @@ const AdminDashboardPage = () => {
             </svg>
           </div>
           <div className="border-l-2 border-primaryColor/5 pl-4 ml-4">
-            <h3 className="font-semibold sm:text-base text-sm">Total Users</h3>
+            <h3 className="font-semibold sm:text-base text-sm">
+              Total Students
+            </h3>
             <p className="font-extrabold text-primaryColor sm:text-3xl text-2xl">
-              {dashboardStats?.users ? dashboardStats?.users : 0}
+              {dashboardStats?.students ? dashboardStats?.students : 0}
+            </p>
+          </div>
+        </div>
+        <div className="bg-white shadow-lg shadow-primaryColor/20 flex items-center p-4 rounded-lg">
+          <div className="icon sm:w-16 w-12 sm:h-16 h-12 bg-primaryColor/15 flex items-center justify-center rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 512"
+              fill="currentColor"
+              className="w-6 h-6 text-primaryColor transition duration-75 dark:text-primaryColor"
+            >
+              <path d="M208 352c-2.4 0-4.8 .4-7.1 1.1C188 357.3 174.4 360 160 360c-14.4 0-28-2.7-41-6.9-2.3-.7-4.7-1.1-7.1-1.1C49.9 352-.3 402.5 0 464.6 .1 490.9 21.7 512 48 512h224c26.3 0 47.9-21.1 48-47.4 .3-62.1-49.9-112.6-112-112.6zm-48-32c53 0 96-43 96-96s-43-96-96-96-96 43-96 96 43 96 96 96zM592 0H208c-26.5 0-48 22.3-48 49.6V96c23.4 0 45.1 6.8 64 17.8V64h352v288h-64v-64H384v64h-76.2c19.1 16.7 33.1 38.7 39.7 64H592c26.5 0 48-22.3 48-49.6V49.6C640 22.3 618.5 0 592 0z" />
+            </svg>
+          </div>
+          <div className="border-l-2 border-primaryColor/5 pl-4 ml-4">
+            <h3 className="font-semibold sm:text-base text-sm">
+              Total Teachers
+            </h3>
+            <p className="font-extrabold text-primaryColor sm:text-3xl text-2xl">
+              {dashboardStats?.teachers ? dashboardStats?.teachers : 0}
             </p>
           </div>
         </div>

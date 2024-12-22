@@ -20,6 +20,10 @@ import AdminUsersListPage from "./modules/admin/dashboard/users/usersList";
 import AdminAddUserPage from "./modules/admin/dashboard/users/addUser";
 import AdminUpdateUserPage from "./modules/admin/dashboard/users/updateUser";
 import AdminUserDetailPage from "./modules/admin/dashboard/users/userDetail";
+import AdminTeachersListPage from "./modules/admin/dashboard/teachers/teachersList";
+import AdminAddTeacherPage from "./modules/admin/dashboard/teachers/addTeacher";
+import AdminUpdateTeacherPage from "./modules/admin/dashboard/teachers/updateTeacher";
+import AdminTeacherDetailPage from "./modules/admin/dashboard/teachers/teacherDetail";
 
 function App() {
   return (
@@ -58,20 +62,37 @@ function App() {
           />
 
           <Route
-            path="users"
+            path="students"
             element={<AdminPrivateRoute element={<AdminUsersListPage />} />}
           />
           <Route
-            path="users/add"
+            path="students/add"
             element={<AdminPrivateRoute element={<AdminAddUserPage />} />}
           />
           <Route
-            path="users/edit/:id"
+            path="students/edit/:id"
             element={<AdminPrivateRoute element={<AdminUpdateUserPage />} />}
           />
           <Route
-            path="users/:id"
+            path="students/:id"
             element={<AdminPrivateRoute element={<AdminUserDetailPage />} />}
+          />
+
+          <Route
+            path="teachers"
+            element={<AdminPrivateRoute element={<AdminTeachersListPage />} />}
+          />
+          <Route
+            path="teachers/add"
+            element={<AdminPrivateRoute element={<AdminAddTeacherPage />} />}
+          />
+          <Route
+            path="teachers/edit/:id"
+            element={<AdminPrivateRoute element={<AdminUpdateTeacherPage />} />}
+          />
+          <Route
+            path="teachers/:id"
+            element={<AdminPrivateRoute element={<AdminTeacherDetailPage />} />}
           />
         </Route>
       </Routes>

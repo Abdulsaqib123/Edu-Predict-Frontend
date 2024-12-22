@@ -2,12 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { validate } from "email-validator";
-import { RoleContext } from "../../../../contexts/RoleContext";
 
 const AdminUpdateUserPage = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({
-    role: "",
     first_name: "",
     last_name: "",
     email: "",
@@ -16,18 +14,15 @@ const AdminUpdateUserPage = () => {
   const [formErrors, setFormErrors] = useState({});
   const { loading, updateUser, getSingleUser, singleUser } =
     useContext(UserContext);
-  const { getRolesList, rolesList } = useContext(RoleContext);
   const navigation = useNavigate();
 
   useEffect(() => {
-    getRolesList();
     getSingleUser(id);
   }, []);
 
   useEffect(() => {
     if (singleUser) {
       setFormData({
-        role: singleUser?.role?._id,
         first_name: singleUser?.first_name,
         last_name: singleUser?.last_name,
         email: singleUser?.email,
@@ -42,13 +37,6 @@ const AdminUpdateUserPage = () => {
     let errors = { ...formErrors };
 
     switch (name) {
-      case "role":
-        if (!value.trim()) {
-          errors.role = "Please select role!";
-        } else {
-          delete errors.role;
-        }
-        break;
       case "first_name":
         if (!value.trim()) {
           errors.first_name = "Please input your first name!";
@@ -82,10 +70,6 @@ const AdminUpdateUserPage = () => {
   const handleFormValidation = (data, name = null) => {
     const errors = {};
 
-    if (!data.role) {
-      errors.role = "Please select role!";
-    }
-
     if (!data.first_name) {
       errors.first_name = "Please input your first name!";
     }
@@ -110,7 +94,7 @@ const AdminUpdateUserPage = () => {
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       let tempData = {
-        role: formData.role,
+        role: "67587c8e74cea1767a2e0583",
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
@@ -119,45 +103,18 @@ const AdminUpdateUserPage = () => {
 
       await updateUser(id, tempData);
 
-      navigation("/admin/users");
+      navigation("/admin/students");
     }
   };
 
   return (
     <div className="pb-40">
       <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg mb-6">
-        Update User
+        Update Student
       </h1>
       <div className="bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
         <form onSubmit={handleFormSubmit} method="POST">
           <div className="sm:space-y-8 space-y-4">
-            <div className="form-group">
-              <label
-                for="role"
-                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
-              >
-                Role
-              </label>
-              <select
-                name="role"
-                id="role"
-                value={formData.role}
-                className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
-                onChange={handleInputChange}
-              >
-                <option value={""}>Select Role</option>
-                {rolesList?.map((role, index) => (
-                  <option value={role?._id} key={index}>
-                    {role?.name}
-                  </option>
-                ))}
-              </select>
-              {formErrors.role && (
-                <span className="text-red-600 text-sm mt-1 inline-block">
-                  {formErrors.role}
-                </span>
-              )}
-            </div>
             <div className="form-group">
               <label
                 for="first_name"

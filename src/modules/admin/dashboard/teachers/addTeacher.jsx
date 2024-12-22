@@ -3,7 +3,7 @@ import { UserContext } from "../../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { validate } from "email-validator";
 
-const AdminAddUserPage = () => {
+const AdminAddTeacherPage = () => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -98,7 +98,7 @@ const AdminAddUserPage = () => {
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       let tempData = {
-        role: "67587c8e74cea1767a2e0583",
+        role: "67587c8e74cea1767a2e0582",
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
@@ -107,14 +107,14 @@ const AdminAddUserPage = () => {
 
       await createUser(tempData);
 
-      navigation("/admin/students");
+      navigation("/admin/teachers");
     }
   };
 
   return (
     <div className="pb-40">
       <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg mb-6">
-        Create Student
+        Create Teacher
       </h1>
       <div className="bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
         <form onSubmit={handleFormSubmit} method="POST">
@@ -239,4 +239,4 @@ const AdminAddUserPage = () => {
   );
 };
 
-export default AdminAddUserPage;
+export default AdminAddTeacherPage;
