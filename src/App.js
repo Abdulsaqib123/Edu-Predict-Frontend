@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserLayout from "./components/layouts/userLayout/layout";
@@ -20,6 +19,7 @@ import AdminUpdateRolePage from "./modules/admin/dashboard/roles/updateRole";
 import AdminUsersListPage from "./modules/admin/dashboard/users/usersList";
 import AdminAddUserPage from "./modules/admin/dashboard/users/addUser";
 import AdminUpdateUserPage from "./modules/admin/dashboard/users/updateUser";
+import AdminUserDetailPage from "./modules/admin/dashboard/users/userDetail";
 
 function App() {
   return (
@@ -68,6 +68,10 @@ function App() {
           <Route
             path="users/edit/:id"
             element={<AdminPrivateRoute element={<AdminUpdateUserPage />} />}
+          />
+          <Route
+            path="users/:id"
+            element={<AdminPrivateRoute element={<AdminUserDetailPage />} />}
           />
         </Route>
       </Routes>

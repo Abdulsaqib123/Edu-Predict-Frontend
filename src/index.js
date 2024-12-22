@@ -8,6 +8,7 @@ import { UserContextProvider } from "./contexts/UserContext";
 import { UploadContextProvider } from "./contexts/UploadContext";
 import { SummaryContextProvider } from "./contexts/SummaryContext";
 import { RoleContextProvider } from "./contexts/RoleContext";
+import { DashboardContextProvider } from "./contexts/DashboardContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,7 +18,9 @@ root.render(
         <UploadContextProvider>
           <SummaryContextProvider>
             <RoleContextProvider>
-              <App />
+              <DashboardContextProvider>
+                <App />
+              </DashboardContextProvider>
             </RoleContextProvider>
           </SummaryContextProvider>
         </UploadContextProvider>
