@@ -85,6 +85,8 @@ const LoginPage = () => {
 
       if (user && user?.role?._id === "67587c8e74cea1767a2e0581") {
         router("/admin/dashboard");
+      } else if (user && user?.role?._id === "67587c8e74cea1767a2e0582") {
+        router("/teacher/dashboard");
       } else {
         router("/dashboard");
       }
@@ -97,6 +99,10 @@ const LoginPage = () => {
 
   if (token && role === "67587c8e74cea1767a2e0581") {
     return <Navigate to={"/admin/dashboard"} />;
+  }
+
+  if (token && role === "67587c8e74cea1767a2e0582") {
+    return <Navigate to={"/teacher/dashboard"} />;
   }
 
   return (

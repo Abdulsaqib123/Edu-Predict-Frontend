@@ -24,6 +24,9 @@ import AdminTeachersListPage from "./modules/admin/dashboard/teachers/teachersLi
 import AdminAddTeacherPage from "./modules/admin/dashboard/teachers/addTeacher";
 import AdminUpdateTeacherPage from "./modules/admin/dashboard/teachers/updateTeacher";
 import AdminTeacherDetailPage from "./modules/admin/dashboard/teachers/teacherDetail";
+import TeacherDashboardLayout from "./components/layouts/teacherDashboardLayout/layout";
+import TeacherPrivateRoute from "./teacherPrivateRoute/teacherPrivateRoute";
+import TeacherDashboardPage from "./modules/teacher/dashboard/dashboard";
 
 function App() {
   return (
@@ -93,6 +96,12 @@ function App() {
           <Route
             path="teachers/:id"
             element={<AdminPrivateRoute element={<AdminTeacherDetailPage />} />}
+          />
+        </Route>
+        <Route exact path="/teacher" element={<TeacherDashboardLayout />}>
+          <Route
+            path="dashboard"
+            element={<TeacherPrivateRoute element={<TeacherDashboardPage />} />}
           />
         </Route>
       </Routes>
