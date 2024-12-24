@@ -9,6 +9,7 @@ import { UploadContextProvider } from "./contexts/UploadContext";
 import { SummaryContextProvider } from "./contexts/SummaryContext";
 import { RoleContextProvider } from "./contexts/RoleContext";
 import { DashboardContextProvider } from "./contexts/DashboardContext";
+import { StudentContextProvider } from "./contexts/StudentContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,7 +20,9 @@ root.render(
           <SummaryContextProvider>
             <RoleContextProvider>
               <DashboardContextProvider>
+                <StudentContextProvider>
                 <App />
+                </StudentContextProvider>
               </DashboardContextProvider>
             </RoleContextProvider>
           </SummaryContextProvider>

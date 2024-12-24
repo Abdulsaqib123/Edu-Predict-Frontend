@@ -187,7 +187,7 @@ const LoginPage = () => {
               )}
               {!loading && "Login"}
             </button>
-            <p className="text-center text-black sm:text-sm text-xs mt-5">
+            {/* <p className="text-center text-black sm:text-sm text-xs mt-5">
               Don't have an account?{" "}
               <Link
                 to={"/create-account"}
@@ -195,7 +195,7 @@ const LoginPage = () => {
               >
                 Create Account
               </Link>
-            </p>
+            </p> */}
           </form>
         </div>
       </div>

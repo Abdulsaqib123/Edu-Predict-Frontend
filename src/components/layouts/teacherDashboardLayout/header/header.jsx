@@ -46,7 +46,7 @@ const TeacherDashboardHeader = ({ singleUser, toggleSidebar }) => {
                 ></path>
               </svg>
             </button>
-            <Link to={"/admin/dashboard"} className="flex ml-2 md:mr-24">
+            <Link to={"/teacher/dashboard"} className="flex ml-2 md:mr-24">
               <img
                 src="/assets/images/brands/logo-light.png"
                 className="h-11 mr-3"
@@ -96,7 +96,7 @@ const TeacherDashboardHeader = ({ singleUser, toggleSidebar }) => {
                   <ul className="py-1">
                     <li>
                       <Link
-                        to={"/teacher/`dashboard"}
+                        to={"/teacher/dashboard"}
                         className="block px-4 py-2 text-sm"
                       >
                         Dashboard

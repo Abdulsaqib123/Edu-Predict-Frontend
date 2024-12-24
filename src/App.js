@@ -27,6 +27,11 @@ import AdminTeacherDetailPage from "./modules/admin/dashboard/teachers/teacherDe
 import TeacherDashboardLayout from "./components/layouts/teacherDashboardLayout/layout";
 import TeacherPrivateRoute from "./teacherPrivateRoute/teacherPrivateRoute";
 import TeacherDashboardPage from "./modules/teacher/dashboard/dashboard";
+import TeacherStudentsListPage from "./modules/teacher/dashboard/students/studentsList";
+import TeacherAddStudentPage from "./modules/teacher/dashboard/students/addStudent";
+import TeacherUpdateStudentPage from "./modules/teacher/dashboard/students/updateStudent";
+import TeacherStudentDetailPage from "./modules/teacher/dashboard/students/studentDetail";
+import TeacherUploadResultsPage from "./modules/teacher/dashboard/uploadResults/uploadResults";
 
 function App() {
   return (
@@ -35,7 +40,7 @@ function App() {
         <Route exact path="/" element={<UserLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/create-account" element={<CreateAccountPage />} />
+          {/* <Route path="/create-account" element={<CreateAccountPage />} /> */}
         </Route>
 
         <Route exact path="/dashboard" element={<DashboardLayout />}>
@@ -102,6 +107,28 @@ function App() {
           <Route
             path="dashboard"
             element={<TeacherPrivateRoute element={<TeacherDashboardPage />} />}
+          />
+
+          <Route
+            path="students"
+            element={<TeacherPrivateRoute element={<TeacherStudentsListPage />} />}
+          />
+          <Route
+            path="students/add"
+            element={<TeacherPrivateRoute element={<TeacherAddStudentPage />} />}
+          />
+          <Route
+            path="students/edit/:id"
+            element={<TeacherPrivateRoute element={<TeacherUpdateStudentPage />} />}
+          />
+          <Route
+            path="students/:id"
+            element={<TeacherPrivateRoute element={<TeacherStudentDetailPage />} />}
+          />
+
+          <Route
+            path="upload-results"
+            element={<TeacherPrivateRoute element={<TeacherUploadResultsPage />} />}
           />
         </Route>
       </Routes>
