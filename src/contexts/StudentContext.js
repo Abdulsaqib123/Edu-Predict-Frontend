@@ -31,7 +31,6 @@ export const StudentContextProvider = ({ children }) => {
     }
   };
 
-
   const createStudent = async (data) => {
     setLoading(true);
     try {
@@ -115,7 +114,6 @@ export const StudentContextProvider = ({ children }) => {
     }
   };
 
-
   return (
     <StudentContext.Provider
       value={{
@@ -127,11 +125,10 @@ export const StudentContextProvider = ({ children }) => {
         getSingleStudent,
         singleStudent,
         singleStudentLoader,
-        studentsList
+        studentsList,
       }}
     >
       {children}
     </StudentContext.Provider>
   );
-
-}
+};

@@ -48,6 +48,22 @@ const DashboardSidebar = ({ isOpen }) => {
                   <span className="ml-3">Notifications</span>
                 </Link>
               </li>
+              <li>
+                <Link
+                  to={"/dashboard/profile"}
+                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white hover:bg-gray-100 group dark:text-black dark:hover:text-white dark:hover:bg-primaryColor transition-all border-[1px] border-primaryColor"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-black dark:group-hover:text-white"
+                    fill="currentColor"
+                  >
+                    <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
+                  </svg>
+                  <span className="ml-3">Profile</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

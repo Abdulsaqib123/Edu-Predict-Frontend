@@ -46,7 +46,7 @@ const StudentNotificationListPage = () => {
             {loading && (
               <tr>
                 <td
-                  colSpan={3}
+                  colSpan={4}
                   className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
                 >
                   Loading...
@@ -101,7 +101,7 @@ const StudentNotificationListPage = () => {
             {notificationsList == "" && !loading && (
               <tr className="bg-white border-b dark:bg-white dark:border-primaryColor">
                 <td
-                  colSpan={3}
+                  colSpan={4}
                   className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
                 >
                   No Notifications Found!

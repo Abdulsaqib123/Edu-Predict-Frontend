@@ -58,6 +58,27 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  const updateProfile = async (id, data) => {
+    setLoading(true);
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_BACKEND_ENV}/users/update/profile/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      successToast(res?.data.message);
+      setLoading(false);
+      return res?.data?.user;
+    } catch (err) {
+      errorToast(err?.response?.data.error);
+      setLoading(false);
+    }
+  };
+
   const deleteUser = async (id, role_id) => {
     setLoading(true);
     try {
@@ -103,6 +124,7 @@ export const UserContextProvider = ({ children }) => {
         getUsersList,
         deleteUser,
         updateUser,
+        updateProfile,
         usersList,
         singleUser,
         singleUserLoader,
