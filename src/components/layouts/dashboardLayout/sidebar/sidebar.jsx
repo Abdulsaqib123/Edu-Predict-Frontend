@@ -34,24 +34,18 @@ const DashboardSidebar = ({ isOpen }) => {
               </li>
               <li>
                 <Link
-                  to={"/dashboard/data-ingestion"}
+                  to={"/dashboard/notifications"}
                   className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white hover:bg-gray-100 group dark:text-black dark:hover:text-white dark:hover:bg-primaryColor transition-all border-[1px] border-primaryColor"
                 >
                   <svg
+                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-black dark:group-hover:text-white"
                     fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 442 442"
-                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-black dark:group-hover:text-white"
+                    viewBox="0 0 448 512"
                   >
-                    <g>
-                      <path d="M331,0H111c-5.522,0-10,4.478-10,10v422c0,5.522,4.478,10,10,10h220c5.522,0,10-4.478,10-10V10C341,4.478,336.522,0,331,0z M321,20v191H121V20H321z M121,422V231h200v191H121z" />
-                      <path d="M201,60h40c5.522,0,10-4.478,10-10s-4.478-10-10-10h-40c-5.522,0-10,4.478-10,10S195.478,60,201,60z" />
-                      <path d="M201,271h40c5.522,0,10-4.478,10-10s-4.478-10-10-10h-40c-5.522,0-10,4.478-10,10S195.478,271,201,271z" />
-                      <path d="M251,291h-60c-5.522,0-10,4.478-10,10v40c0,5.522,4.478,10,10,10h60c5.522,0,10-4.478,10-10v-40 C261,295.478,256.522,291,251,291z M241,331h-40v-20h40V331z" />
-                      <path d="M191,140h60c5.522,0,10-4.478,10-10V90c0-5.522-4.478-10-10-10h-60c-5.522,0-10,4.478-10,10v40 C181,135.522,185.478,140,191,140z M201,100h40v20h-40V100z" />
-                    </g>
+                    <path d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
                   </svg>
-                  <span className="ml-3">Data Ingestion</span>
+                  <span className="ml-3">Notifications</span>
                 </Link>
               </li>
             </ul>

@@ -8,8 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import DashboardLayout from "./components/layouts/dashboardLayout/layout";
 import DashboardPage from "./modules/user/pages/dashboard/dashboard";
 import PrivateRoute from "./privateRoute/privateRoute";
-import CreateAccountPage from "./modules/user/pages/register/register";
-import DashboardDataIngestionPage from "./modules/user/pages/dashboard/dataIngestion/dataIngestion";
 import AdminDashboardLayout from "./components/layouts/adminDashboardLayout/layout";
 import AdminPrivateRoute from "./adminPrivateRoute/adminPrivateRoute";
 import AdminDashboardPage from "./modules/admin/dashboard/dashboard";
@@ -32,6 +30,8 @@ import TeacherAddStudentPage from "./modules/teacher/dashboard/students/addStude
 import TeacherUpdateStudentPage from "./modules/teacher/dashboard/students/updateStudent";
 import TeacherStudentDetailPage from "./modules/teacher/dashboard/students/studentDetail";
 import TeacherUploadResultsPage from "./modules/teacher/dashboard/uploadResults/uploadResults";
+import StudentNotificationListPage from "./modules/user/pages/dashboard/notifications/notificationsList";
+import StudentNotificationDetailPage from "./modules/user/pages/dashboard/notifications/notificationDetail";
 
 function App() {
   return (
@@ -46,8 +46,14 @@ function App() {
         <Route exact path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<PrivateRoute element={<DashboardPage />} />} />
           <Route
-            path="data-ingestion"
-            element={<PrivateRoute element={<DashboardDataIngestionPage />} />}
+            path="notifications"
+            element={<PrivateRoute element={<StudentNotificationListPage />} />}
+          />
+          <Route
+            path="notifications/:id"
+            element={
+              <PrivateRoute element={<StudentNotificationDetailPage />} />
+            }
           />
         </Route>
 
@@ -111,24 +117,34 @@ function App() {
 
           <Route
             path="students"
-            element={<TeacherPrivateRoute element={<TeacherStudentsListPage />} />}
+            element={
+              <TeacherPrivateRoute element={<TeacherStudentsListPage />} />
+            }
           />
           <Route
             path="students/add"
-            element={<TeacherPrivateRoute element={<TeacherAddStudentPage />} />}
+            element={
+              <TeacherPrivateRoute element={<TeacherAddStudentPage />} />
+            }
           />
           <Route
             path="students/edit/:id"
-            element={<TeacherPrivateRoute element={<TeacherUpdateStudentPage />} />}
+            element={
+              <TeacherPrivateRoute element={<TeacherUpdateStudentPage />} />
+            }
           />
           <Route
             path="students/:id"
-            element={<TeacherPrivateRoute element={<TeacherStudentDetailPage />} />}
+            element={
+              <TeacherPrivateRoute element={<TeacherStudentDetailPage />} />
+            }
           />
 
           <Route
             path="upload-results"
-            element={<TeacherPrivateRoute element={<TeacherUploadResultsPage />} />}
+            element={
+              <TeacherPrivateRoute element={<TeacherUploadResultsPage />} />
+            }
           />
         </Route>
       </Routes>
