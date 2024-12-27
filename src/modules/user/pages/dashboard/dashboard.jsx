@@ -1,38 +1,145 @@
 import React, { useContext, useEffect } from "react";
-import { SummaryContext } from "../../../../contexts/SummaryContext";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+} from "chart.js";
+import { DashboardContext } from "../../../../contexts/DashboardContext";
+import { LinearProgress } from "@mui/material";
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip);
 
 const DashboardPage = () => {
-  const { getDataIngestionSummary, dataIngestionSummary } =
-    useContext(SummaryContext);
+  const {
+    getStudentDashboardStats,
+    gradesData,
+    attendanceProgress,
+    modulesProgress,
+  } = useContext(DashboardContext);
 
   useEffect(() => {
-    getDataIngestionSummary();
+    getStudentDashboardStats();
   }, []);
 
   return (
     <div className="pb-40">
-      <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg mb-6">
-        Dashboard
+      <h1 className="text-black font-semibold md:text-3xl sm:text-2xl text-lg mb-8">
+        Student Dashboard
       </h1>
-      <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-7">
-        {/* <div className="bg-white shadow-lg shadow-primaryColor/20 flex items-center p-4 rounded-lg">
-          <div className="icon sm:w-16 w-12 sm:h-16 h-12 bg-primaryColor/15 flex items-center justify-center rounded-full">
-            <img
-              src="/assets/images/records-icon.png"
-              className="sm:w-8 w-6 sm:h-8 h-6"
-            />
-          </div>
-          <div className="border-l-2 border-primaryColor/5 pl-4 ml-4">
-            <h3 className="font-semibold sm:text-base text-sm">
-              Total Records
-            </h3>
-            <p className="font-extrabold text-primaryColor sm:text-3xl text-2xl">
-              {dataIngestionSummary?.total_records
-                ? dataIngestionSummary?.total_records
-                : 0}
-            </p>
-          </div>
-        </div> */}
+      <div className="grid grid-cols-2 gap-7">
+        <div className="bg-white shadow-lg shadow-primaryColor/20 p-4 rounded-lg md:col-span-1 col-span-2">
+          <h2 className="text-black font-semibold md:text-2xl sm:text-2xl text-lg mb-6">
+            Grades
+          </h2>
+          <Bar
+            data={gradesData && gradesData}
+            options={{
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: {
+                    font: {
+                      family: "Poppins",
+                    },
+                  },
+                },
+                y: {
+                  ticks: {
+                    font: {
+                      family: "Poppins",
+                    },
+                  },
+                },
+              },
+              plugins: {
+                legend: {
+                  labels: {
+                    font: {
+                      family: "Poppins",
+                    },
+                  },
+                },
+                tooltip: {
+                  bodyFont: {
+                    family: "Poppins",
+                  },
+                },
+              },
+            }}
+          />
+        </div>
+        <div className="bg-white shadow-lg shadow-primaryColor/20 p-4 rounded-lg md:col-span-1 col-span-2">
+          <h2 className="text-black font-semibold md:text-2xl sm:text-2xl text-lg mb-6">
+            LMS Progress
+          </h2>
+          {modulesProgress == "" && (
+            <p className="text-center">No lms progress!</p>
+          )}
+          {modulesProgress.map((module, index) => (
+            <div className="mb-5">
+              <div className="flex items-center justify-between mb-2">
+                <h6 className="text-gray-700">{module.module}</h6>
+                <p className="font-bold text-primaryColor">
+                  {module?.progress}%
+                </p>
+              </div>
+              <LinearProgress
+                variant="determinate"
+                value={module?.progress}
+                sx={{
+                  width: "100%",
+                  height: 8,
+                  borderRadius: 5,
+                  backgroundColor: "#b7aaf0",
+                  "& .MuiLinearProgress-bar": {
+                    backgroundColor: "#5B3AEE",
+                  },
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="bg-white shadow-lg shadow-primaryColor/20 p-4 rounded-lg col-span-2">
+          <h2 className="text-black font-semibold md:text-2xl sm:text-2xl text-lg mb-6">
+            Attendance Progress
+          </h2>
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs uppercase bg-primaryColor text-white">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  SUBJECT
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  PROGRESS
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {!attendanceProgress || attendanceProgress.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={2}
+                    className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
+                  >
+                    No attendance progress!
+                  </td>
+                </tr>
+              ) : (
+                attendanceProgress?.map((subject, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4 text-black">{subject?.subject}</td>
+                    <td className="px-6 py-4 text-black">
+                      {subject?.progress}%
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

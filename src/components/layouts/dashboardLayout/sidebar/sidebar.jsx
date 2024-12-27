@@ -11,17 +11,17 @@ const DashboardSidebar = ({ isOpen }) => {
       }`}
       aria-label="Sidebar"
     >
-      <div className="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200 dark:bg-primaryColor/15 dark:border-primaryColor">
+      <div className="relative flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200">
         <div className="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
-          <div className="flex-1 px-3 space-y-1 divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="flex-1 px-3 space-y-1 divide-y divide-gray-200">
             <ul className="pb-2 space-y-4 lg:mt-4 mt-0">
               <li>
                 <Link
                   to={"/dashboard"}
-                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white hover:bg-gray-100 group dark:text-black dark:hover:text-white dark:hover:bg-primaryColor transition-all border-[1px] border-primaryColor"
+                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white group hover:bg-primaryColor transition-all border-[1px] border-primaryColor hover:text-white"
                 >
                   <svg
-                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-black dark:group-hover:text-white"
+                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-white"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +35,10 @@ const DashboardSidebar = ({ isOpen }) => {
               <li>
                 <Link
                   to={"/dashboard/notifications"}
-                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white hover:bg-gray-100 group dark:text-black dark:hover:text-white dark:hover:bg-primaryColor transition-all border-[1px] border-primaryColor"
+                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white group hover:bg-primaryColor transition-all border-[1px] border-primaryColor hover:text-white"
                 >
                   <svg
-                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-black dark:group-hover:text-white"
+                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-white"
                     fill="currentColor"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
@@ -51,12 +51,12 @@ const DashboardSidebar = ({ isOpen }) => {
               <li>
                 <Link
                   to={"/dashboard/profile"}
-                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white hover:bg-gray-100 group dark:text-black dark:hover:text-white dark:hover:bg-primaryColor transition-all border-[1px] border-primaryColor"
+                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white group hover:bg-primaryColor transition-all border-[1px] border-primaryColor hover:text-white"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
-                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-black dark:group-hover:text-white"
+                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-white"
                     fill="currentColor"
                   >
                     <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />

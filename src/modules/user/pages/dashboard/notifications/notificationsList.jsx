@@ -26,7 +26,7 @@ const StudentNotificationListPage = () => {
       </div>
       <div class="relative overflow-x-auto">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-primaryColor dark:text-white">
+          <thead class="text-xs uppercase bg-primaryColor text-white">
             <tr>
               <th scope="col" class="px-6 py-3">
                 ID
@@ -99,7 +99,7 @@ const StudentNotificationListPage = () => {
               </>
             )}
             {notificationsList == "" && !loading && (
-              <tr className="bg-white border-b dark:bg-white dark:border-primaryColor">
+              <tr className="border-b bg-white border-primaryColor">
                 <td
                   colSpan={4}
                   className="px-6 py-4 font-medium text-black whitespace-nowrap dark:text-black text-center"
