@@ -146,7 +146,7 @@ const StudentProfilePage = () => {
         </div>
       </div>
       <div className="bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
-        <form onSubmit={handleFormSubmit} method="POST">
+        <form onSubmit={handleFormSubmit} method="POST" className="mb-8">
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-7">
             <div className="form-group sm:col-span-1 col-span-2">
               <label
@@ -289,6 +289,24 @@ const StudentProfilePage = () => {
             )}
           </button>
         </form>
+        <h2 className="text-black font-semibold md:text-2xl sm:text-xl text-lg">
+          Teacher Profile
+        </h2>
+        <div className="w-full h-[2px] bg-primaryColor/20 mt-3 mb-7"></div>
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-7">
+          <div className="bg-white shadow-lg shadow-primaryColor/20 p-4 rounded-lg">
+            <h3 className="font-semibold sm:text-base text-sm">Username</h3>
+            <p className="font-extrabold text-primaryColor sm:text-2xl text-xl">
+              {singleUser?.teacher?.username}
+            </p>
+          </div>
+          <div className="bg-white shadow-lg shadow-primaryColor/20 p-4 rounded-lg">
+            <h3 className="font-semibold sm:text-base text-sm">Email</h3>
+            <p className="font-extrabold text-primaryColor sm:text-2xl text-xl">
+              {singleUser?.teacher?.email}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
