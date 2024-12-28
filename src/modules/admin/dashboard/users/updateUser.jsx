@@ -2,33 +2,43 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { validate } from "email-validator";
+import { StudentContext } from "../../../../contexts/StudentContext";
 
 const AdminUpdateUserPage = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({
+    teacher_id: "",
     first_name: "",
     last_name: "",
+    age: "",
+    gender: "",
     email: "",
     password: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const { loading, updateUser, getSingleUser, singleUser } =
-    useContext(UserContext);
+  const { getUsersList, usersList } = useContext(UserContext);
+  const { updateStudent, loading, getSingleStudent, singleStudent } =
+    useContext(StudentContext);
   const navigation = useNavigate();
 
   useEffect(() => {
-    getSingleUser(id);
+    getSingleStudent(id);
+    getUsersList("?role_id=67587c8e74cea1767a2e0582");
   }, []);
 
   useEffect(() => {
-    if (singleUser) {
+    if (singleStudent) {
       setFormData({
-        first_name: singleUser?.first_name,
-        last_name: singleUser?.last_name,
-        email: singleUser?.email,
+        first_name: singleStudent?.first_name,
+        last_name: singleStudent?.last_name,
+        email: singleStudent?.email,
+        teacher_id: singleStudent?.teacher_id,
+        age: singleStudent?.age,
+        gender: singleStudent?.gender,
       });
+      console.log(singleStudent?.teacher_id);
     }
-  }, [singleUser]);
+  }, [singleStudent]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +47,13 @@ const AdminUpdateUserPage = () => {
     let errors = { ...formErrors };
 
     switch (name) {
+      case "teacher_id":
+        if (!value.trim()) {
+          errors.teacher_id = "Please select teacher!";
+        } else {
+          delete errors.teacher_id;
+        }
+        break;
       case "first_name":
         if (!value.trim()) {
           errors.first_name = "Please input your first name!";
@@ -49,6 +66,20 @@ const AdminUpdateUserPage = () => {
           errors.last_name = "Please input your last name!";
         } else {
           delete errors.last_name;
+        }
+        break;
+      case "age":
+        if (!value.trim()) {
+          errors.age = "Please input student age!";
+        } else {
+          delete errors.age;
+        }
+        break;
+      case "gender":
+        if (!value.trim()) {
+          errors.gender = "Please input student gender!";
+        } else {
+          delete errors.gender;
         }
         break;
       case "email":
@@ -70,12 +101,24 @@ const AdminUpdateUserPage = () => {
   const handleFormValidation = (data, name = null) => {
     const errors = {};
 
+    if (!data.teacher_id) {
+      errors.teacher_id = "Please select teacher!";
+    }
+
     if (!data.first_name) {
       errors.first_name = "Please input your first name!";
     }
 
     if (!data.last_name) {
       errors.last_name = "Please input your last name!";
+    }
+
+    if (!data.age) {
+      errors.age = "Please input student age!";
+    }
+
+    if (!data.gender) {
+      errors.gender = "Please input student gender!";
     }
 
     if (!data.email) {
@@ -90,6 +133,8 @@ const AdminUpdateUserPage = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(formData);
+
     const errors = handleFormValidation(formData);
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
@@ -99,9 +144,12 @@ const AdminUpdateUserPage = () => {
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password,
+        age: formData.age,
+        gender: formData.gender,
+        teacher_id: formData.teacher_id,
       };
 
-      await updateUser(id, tempData);
+      await updateStudent(id, tempData);
 
       navigation("/admin/students");
     }
@@ -115,6 +163,33 @@ const AdminUpdateUserPage = () => {
       <div className="bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
         <form onSubmit={handleFormSubmit} method="POST">
           <div className="sm:space-y-8 space-y-4">
+            <div className="form-group">
+              <label
+                for="teacher_id"
+                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+              >
+                Teacher
+              </label>
+              <select
+                id="teacher_id"
+                name="teacher_id"
+                className="w-full border-[1px] border-white text-primaryColor rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                onChange={handleInputChange}
+                value={formData.teacher_id}
+              >
+                <option value={""}>Select Teacher</option>
+                {usersList?.map((user, index) => (
+                  <option value={user?._id} key={index} selected>
+                    {user?.first_name} {user?.last_name}
+                  </option>
+                ))}
+              </select>
+              {formErrors.teacher_id && (
+                <span className="text-red-600 text-sm mt-1 inline-block">
+                  {formErrors.teacher_id}
+                </span>
+              )}
+            </div>
             <div className="form-group">
               <label
                 for="first_name"
@@ -156,6 +231,52 @@ const AdminUpdateUserPage = () => {
               {formErrors.last_name && (
                 <span className="text-red-600 text-sm mt-1 inline-block">
                   {formErrors.last_name}
+                </span>
+              )}
+            </div>
+            <div className="form-group">
+              <label
+                for="age"
+                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+              >
+                Age
+              </label>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                placeholder="Age..."
+                onChange={handleInputChange}
+                value={formData.age}
+              />
+              {formErrors.age && (
+                <span className="text-red-600 text-sm mt-1 inline-block">
+                  {formErrors.age}
+                </span>
+              )}
+            </div>
+            <div className="form-group">
+              <label
+                for="gender"
+                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                name="gender"
+                className="w-full border-[1px] border-white text-primaryColor rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                onChange={handleInputChange}
+                value={formData.gender}
+              >
+                <option value={""}>Select Gender</option>
+                <option value={"male"}>Male</option>
+                <option value={"female"}>Female</option>
+              </select>
+              {formErrors.gender && (
+                <span className="text-red-600 text-sm mt-1 inline-block">
+                  {formErrors.gender}
                 </span>
               )}
             </div>

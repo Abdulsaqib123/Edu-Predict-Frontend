@@ -2,17 +2,26 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { validate } from "email-validator";
+import { StudentContext } from "../../../../contexts/StudentContext";
 
 const AdminAddUserPage = () => {
   const [formData, setFormData] = useState({
+    teacher_id: "",
     first_name: "",
     last_name: "",
+    age: "",
+    gender: "",
     email: "",
     password: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const { loading, createUser } = useContext(UserContext);
+  const { getUsersList, usersList } = useContext(UserContext);
+  const { createStudent, loading } = useContext(StudentContext);
   const navigation = useNavigate();
+
+  useEffect(() => {
+    getUsersList("?role_id=67587c8e74cea1767a2e0582");
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +30,13 @@ const AdminAddUserPage = () => {
     let errors = { ...formErrors };
 
     switch (name) {
+      case "teacher_id":
+        if (!value.trim()) {
+          errors.teacher_id = "Please select teacher!";
+        } else {
+          delete errors.teacher_id;
+        }
+        break;
       case "first_name":
         if (!value.trim()) {
           errors.first_name = "Please input your first name!";
@@ -33,6 +49,20 @@ const AdminAddUserPage = () => {
           errors.last_name = "Please input your last name!";
         } else {
           delete errors.last_name;
+        }
+        break;
+      case "age":
+        if (!value.trim()) {
+          errors.age = "Please input student age!";
+        } else {
+          delete errors.age;
+        }
+        break;
+      case "gender":
+        if (!value.trim()) {
+          errors.gender = "Please input student gender!";
+        } else {
+          delete errors.gender;
         }
         break;
       case "email":
@@ -66,12 +96,24 @@ const AdminAddUserPage = () => {
   const handleFormValidation = (data, name = null) => {
     const errors = {};
 
+    if (!data.teacher_id) {
+      errors.teacher_id = "Please select teacher!";
+    }
+
     if (!data.first_name) {
       errors.first_name = "Please input your first name!";
     }
 
     if (!data.last_name) {
       errors.last_name = "Please input your last name!";
+    }
+
+    if (!data.age) {
+      errors.age = "Please input student age!";
+    }
+
+    if (!data.gender) {
+      errors.gender = "Please input student gender!";
     }
 
     if (!data.email) {
@@ -103,9 +145,12 @@ const AdminAddUserPage = () => {
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password,
+        age: formData.age,
+        gender: formData.gender,
+        teacher_id: formData.teacher_id,
       };
 
-      await createUser(tempData);
+      await createStudent(tempData);
 
       navigation("/admin/students");
     }
@@ -119,6 +164,32 @@ const AdminAddUserPage = () => {
       <div className="bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
         <form onSubmit={handleFormSubmit} method="POST">
           <div className="sm:space-y-8 space-y-4">
+            <div className="form-group">
+              <label
+                for="teacher_id"
+                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+              >
+                Teacher
+              </label>
+              <select
+                id="teacher_id"
+                name="teacher_id"
+                className="w-full border-[1px] border-white text-primaryColor rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                onChange={handleInputChange}
+              >
+                <option value={""}>Select Teacher</option>
+                {usersList?.map((user, index) => (
+                  <option value={user?._id} key={index}>
+                    {user?.first_name} {user?.last_name}
+                  </option>
+                ))}
+              </select>
+              {formErrors.teacher_id && (
+                <span className="text-red-600 text-sm mt-1 inline-block">
+                  {formErrors.teacher_id}
+                </span>
+              )}
+            </div>
             <div className="form-group">
               <label
                 for="first_name"
@@ -158,6 +229,50 @@ const AdminAddUserPage = () => {
               {formErrors.last_name && (
                 <span className="text-red-600 text-sm mt-1 inline-block">
                   {formErrors.last_name}
+                </span>
+              )}
+            </div>
+            <div className="form-group">
+              <label
+                for="age"
+                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+              >
+                Age
+              </label>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                placeholder="Age..."
+                onChange={handleInputChange}
+              />
+              {formErrors.age && (
+                <span className="text-red-600 text-sm mt-1 inline-block">
+                  {formErrors.age}
+                </span>
+              )}
+            </div>
+            <div className="form-group">
+              <label
+                for="gender"
+                className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
+              >
+                Gender
+              </label>
+              <select
+                id="gender"
+                name="gender"
+                className="w-full border-[1px] border-white text-primaryColor rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
+                onChange={handleInputChange}
+              >
+                <option value={""}>Select Gender</option>
+                <option value={"male"}>Male</option>
+                <option value={"female"}>Female</option>
+              </select>
+              {formErrors.gender && (
+                <span className="text-red-600 text-sm mt-1 inline-block">
+                  {formErrors.gender}
                 </span>
               )}
             </div>
