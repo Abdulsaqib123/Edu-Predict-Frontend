@@ -87,7 +87,7 @@ export const DashboardContextProvider = ({ children }) => {
         datasets: [
           {
             label: "Grades",
-            data: studentData.map((record) => record?.score),
+            data: studentData.map((record) => record?.grade),
             backgroundColor: "#8a74ed",
             borderColor: "#8a74ed",
             borderWidth: 1,

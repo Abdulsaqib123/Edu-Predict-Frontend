@@ -81,7 +81,9 @@ const DashboardPage = () => {
           {modulesProgress.map((module, index) => (
             <div className="mb-5">
               <div className="flex items-center justify-between mb-2">
-                <h6 className="text-gray-700">{module.module}</h6>
+                <h6 className="text-gray-700 sm:text-base text-sm">
+                  {module.module}
+                </h6>
                 <p className="font-bold text-primaryColor">
                   {module?.progress}%
                 </p>
