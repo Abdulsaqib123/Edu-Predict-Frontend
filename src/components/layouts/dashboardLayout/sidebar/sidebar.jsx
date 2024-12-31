@@ -34,6 +34,22 @@ const DashboardSidebar = ({ isOpen }) => {
               </li>
               <li>
                 <Link
+                  to={"/dashboard/reports"}
+                  className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white group hover:bg-primaryColor transition-all border-[1px] border-primaryColor hover:text-white"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    className="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-white"
+                    fill="currentColor"
+                  >
+                    <path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z" />
+                  </svg>
+                  <span className="ml-3">Reports</span>
+                </Link>
+              </li>
+              <li>
+                <Link
                   to={"/dashboard/notifications"}
                   className="flex items-center lg:p-4 p-3 lg:text-base text-sm text-black rounded-lg bg-white group hover:bg-primaryColor transition-all border-[1px] border-primaryColor hover:text-white"
                 >

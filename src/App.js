@@ -33,6 +33,7 @@ import TeacherUploadResultsPage from "./modules/teacher/dashboard/uploadResults/
 import StudentNotificationListPage from "./modules/user/pages/dashboard/notifications/notificationsList";
 import StudentNotificationDetailPage from "./modules/user/pages/dashboard/notifications/notificationDetail";
 import StudentProfilePage from "./modules/user/pages/dashboard/profile/profile";
+import StudentReportListPage from "./modules/user/pages/dashboard/reports/reportsList";
 
 function App() {
   return (
@@ -59,6 +60,10 @@ function App() {
           <Route
             path="profile"
             element={<PrivateRoute element={<StudentProfilePage />} />}
+          />
+          <Route
+            path="reports"
+            element={<PrivateRoute element={<StudentReportListPage />} />}
           />
         </Route>
 

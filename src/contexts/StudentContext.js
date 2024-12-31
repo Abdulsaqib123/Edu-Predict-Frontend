@@ -10,6 +10,12 @@ export const StudentContextProvider = ({ children }) => {
   const [studentsList, setStudentsList] = useState();
   const [singleStudentLoader, setSingleStudentLoader] = useState(false);
   const [singleStudent, setSingleStudent] = useState(null);
+  const [gradesData, setGradesData] = useState({
+    labels: [],
+    datasets: [],
+  });
+  const [attendanceProgress, setAttendanceProgress] = useState(null);
+  const [modulesProgress, setModulesProgress] = useState([]);
 
   const getStudentsList = async (query = "") => {
     setLoading(true);
@@ -105,6 +111,56 @@ export const StudentContextProvider = ({ children }) => {
           },
         }
       );
+
+      const data = res?.data?.educational_data_list;
+
+      const studentData = data.flatMap((item) => item?.data);
+
+      setGradesData({
+        labels: studentData.map((record) => record?.subject),
+        datasets: [
+          {
+            label: "Grades",
+            data: studentData.map((record) => record?.grade),
+            backgroundColor: "#8a74ed",
+            borderColor: "#8a74ed",
+            borderWidth: 1,
+          },
+        ],
+      });
+
+      const attendanceProgress = {};
+
+      studentData.forEach((record) => {
+        const { subject, attendance_status } = record;
+
+        if (!attendanceProgress[subject]) {
+          attendanceProgress[subject] = { total: 0, present: 0 };
+        }
+
+        attendanceProgress[subject].total += 1;
+        if (attendance_status === "Present") {
+          attendanceProgress[subject].present += 1;
+        }
+      });
+
+      const attendancePercentage = Object.keys(attendanceProgress).map(
+        (subject) => {
+          const { total, present } = attendanceProgress[subject];
+          const percentage = total === 0 ? 0 : (present / total) * 100;
+          return { subject, progress: percentage };
+        }
+      );
+
+      setAttendanceProgress(attendancePercentage);
+
+      const moduleData = studentData.map((module) => ({
+        module: module?.module,
+        progress: parseInt(module?.progress.replace("%", "")),
+      }));
+
+      setModulesProgress(moduleData);
+
       setSingleStudent(res?.data?.student);
       setSingleStudentLoader(false);
     } catch (err) {
@@ -126,6 +182,9 @@ export const StudentContextProvider = ({ children }) => {
         singleStudent,
         singleStudentLoader,
         studentsList,
+        gradesData,
+        attendanceProgress,
+        modulesProgress,
       }}
     >
       {children}
