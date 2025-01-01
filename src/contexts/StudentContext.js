@@ -117,33 +117,64 @@ export const StudentContextProvider = ({ children }) => {
       const studentData = data.flatMap((item) => item?.data);
 
       setGradesData({
-        labels: studentData.map((record) => record?.subject),
-        datasets: [
-          {
-            label: "Grades",
-            data: studentData.map((record) => record?.grade),
-            backgroundColor: "#8a74ed",
-            borderColor: "#8a74ed",
-            borderWidth: 1,
-          },
-        ],
+        labels: [
+          "English",
+          "Urdu",
+          "Math",
+          "Science",
+          "Literature",
+          "Computer",
+          "Social Studies",
+        ], // These are the subjects
+        datasets: studentData.map((record, index) => ({
+          label: `Marks`, // Label for each student (e.g., Student 1)
+          data: [
+            record.english,
+            record.urdu,
+            record.math,
+            record.science,
+            record.literature,
+            record.computer,
+            record.social_studies,
+          ], // Extracting the grades for each subject for the specific student
+          backgroundColor: "#8a74ed", // Background color for bars
+          borderColor: "#8a74ed", // Border color for bars
+          borderWidth: 1, // Border width
+        })),
       });
 
-      const attendanceProgress = {};
+      // Initialize attendance progress object
+      const attendanceProgress = {
+        english: { total: 0, present: 0 },
+        urdu: { total: 0, present: 0 },
+        math: { total: 0, present: 0 },
+        science: { total: 0, present: 0 },
+        literature: { total: 0, present: 0 },
+        computer: { total: 0, present: 0 },
+        social_studies: { total: 0, present: 0 },
+      };
 
+      // Iterate over each student record
       studentData.forEach((record) => {
-        const { subject, attendance_status } = record;
+        const subjects = [
+          "english",
+          "urdu",
+          "math",
+          "science",
+          "literature",
+          "computer",
+          "social_studies",
+        ];
 
-        if (!attendanceProgress[subject]) {
-          attendanceProgress[subject] = { total: 0, present: 0 };
-        }
-
-        attendanceProgress[subject].total += 1;
-        if (attendance_status === "Present") {
-          attendanceProgress[subject].present += 1;
-        }
+        subjects.forEach((subject) => {
+          if (record.attendance_status === "Present") {
+            attendanceProgress[subject].present += 1;
+          }
+          attendanceProgress[subject].total += 1;
+        });
       });
 
+      // Calculate percentage for each subject
       const attendancePercentage = Object.keys(attendanceProgress).map(
         (subject) => {
           const { total, present } = attendanceProgress[subject];
@@ -152,6 +183,7 @@ export const StudentContextProvider = ({ children }) => {
         }
       );
 
+      // Update state or handle attendancePercentage
       setAttendanceProgress(attendancePercentage);
 
       const moduleData = studentData.map((module) => ({

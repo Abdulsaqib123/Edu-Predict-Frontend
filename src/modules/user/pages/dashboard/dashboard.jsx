@@ -32,7 +32,7 @@ const DashboardPage = () => {
       <div className="grid grid-cols-2 gap-7">
         <div className="bg-white shadow-lg shadow-primaryColor/20 p-4 rounded-lg md:col-span-1 col-span-2">
           <h2 className="text-black font-semibold md:text-2xl sm:text-2xl text-lg mb-6">
-            Grades
+            Marks
           </h2>
           <Bar
             data={gradesData && gradesData}
@@ -108,13 +108,13 @@ const DashboardPage = () => {
           <h2 className="text-black font-semibold md:text-2xl sm:text-2xl text-lg mb-6">
             Attendance Progress
           </h2>
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs uppercase bg-primaryColor text-white">
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead className="text-xs uppercase bg-primaryColor text-white">
               <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   SUBJECT
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" className="px-6 py-3">
                   PROGRESS
                 </th>
               </tr>
@@ -130,11 +130,11 @@ const DashboardPage = () => {
                   </td>
                 </tr>
               ) : (
-                attendanceProgress?.map((subject, index) => (
+                attendanceProgress.map((subject, index) => (
                   <tr key={index}>
-                    <td className="px-6 py-4 text-black">{subject?.subject}</td>
+                    <td className="px-6 py-4 text-black">{subject.subject}</td>
                     <td className="px-6 py-4 text-black">
-                      {subject?.progress}%
+                      {subject.progress ? `${subject.progress}%` : "No data"}
                     </td>
                   </tr>
                 ))

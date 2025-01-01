@@ -110,7 +110,7 @@ const TeacherStudentDetailPage = () => {
         <div className="flex items-stretch justify-between flex-wrap">
           <div className="space-y-5 md:w-[49%] md:mb-0 mb-6 w-full bg-gray-100/55 p-7 rounded-xl">
             <h3 className="text-primaryColor font-semibold sm:text-xl">
-              Grades
+              Marks
             </h3>
             <Bar
               data={gradesData && gradesData}
