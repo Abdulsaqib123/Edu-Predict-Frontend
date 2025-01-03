@@ -34,6 +34,7 @@ import StudentNotificationListPage from "./modules/user/pages/dashboard/notifica
 import StudentNotificationDetailPage from "./modules/user/pages/dashboard/notifications/notificationDetail";
 import StudentProfilePage from "./modules/user/pages/dashboard/profile/profile";
 import StudentReportListPage from "./modules/user/pages/dashboard/reports/reportsList";
+import TeacherProfilePage from "./modules/teacher/dashboard/profile/profile";
 
 function App() {
   return (
@@ -155,6 +156,11 @@ function App() {
             element={
               <TeacherPrivateRoute element={<TeacherUploadResultsPage />} />
             }
+          />
+
+          <Route
+            path="profile"
+            element={<TeacherPrivateRoute element={<TeacherProfilePage />} />}
           />
         </Route>
       </Routes>
