@@ -1,50 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { BarChart3, Brain, Globe2, LineChart } from "lucide-react";
 
-const HomePage = () => {
+const ServicesPage = () => {
   return (
     <>
-      <div className="md:pt-64 sm:pt-52 pt-36 bg-secondarySecondColor md:pb-64 pb-52 px-5">
+      <div className="md:pt-44 sm:pt-44 pt-36 bg-gray-100 md:pb-36 pb-28 px-5">
         <div className="max-w-7xl w-full mx-auto">
           <div className="flex items-center justify-center">
             <div className="text-center">
-              <h1 className="text-center uppercase font-semibold sm:text-xl text-sm tracking-widest sm:mb-3 mb-2">
-                Improve <span className="text-primaryColor">Your</span> Skills
-              </h1>
               <h2 className="text-center text-black font-bold md:text-7xl sm:text-5xl text-3xl md:leading-[84px] sm:leading-[52px] leading-[40px] mx-auto sm:mb-4 mb-3">
-                Improve Your Skills With{" "}
-                <span className="text-primaryColor">Prediction</span>
+                Services
               </h2>
               <p className="text-gray-800 sm:text-base text-sm mx-auto max-w-2xl font-normal sm:mb-9 mb-5">
-                Explore insights and trends with our advanced analytics
-                platform. Make data-driven decisions to create a
-                sustainable future.
+                Learn more about our mission and vision.
               </p>
-              <div className="btns sm:flex items-center gap-x-5 sm:gap-y-0 justify-center">
-                <Link
-                  to={"/login"}
-                  className="uppercase inline-block bg-primaryColor text-white font-semibold sm:text-base text-sm sm:py-4 py-3 px-9 rounded-[50px] transition-all hover:bg-transparent border-2 border-primaryColor hover:text-primaryColor sm:w-auto w-full sm:mb-auto mb-3"
-                >
-                  Start improve your skill
-                </Link>
-                <Link
-                  to={"/about-us"}
-                  className="uppercase inline-block bg-black text-white font-semibold sm:text-base text-sm sm:py-4 py-3 px-9 rounded-[50px] transition-all hover:bg-transparent hover:text-black border-2 border-black sm:w-auto w-full"
-                >
-                  About Us
-                </Link>
-              </div>
             </div>
           </div>
         </div>
       </div>
-      <section class="bg-gray-100 py-[80px] px-6">
+      <section class="py-[80px] px-6">
         <div className="max-w-7xl w-full mx-auto">
           <div class="max-w-7xl mx-auto text-center mb-14">
-            <h2 class="text-4xl font-bold text-gray-800">
-              Advanced Features for Education Analysis
-            </h2>
+            <h2 class="text-4xl font-bold text-gray-800">Our Services</h2>
             <p class="text-lg text-gray-600 mt-4">
               Our platform provides powerful tools to analyze and understand
               Education data.
@@ -105,8 +81,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      z
     </>
   );
 };
 
-export default HomePage;
+export default ServicesPage;

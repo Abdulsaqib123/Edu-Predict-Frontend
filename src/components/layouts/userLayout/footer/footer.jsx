@@ -17,8 +17,7 @@ const UserFooter = () => {
               </a>
             </div>
             <p className="text-gray-200 sm:text-base text-sm mb-5">
-              Nullam interdum libero vitae pretium aliquam donec nibh purus
-              laoreet in ullamcorper vel malesuada sit amet enim.
+              Empowering climate action through data analytics and AI.
             </p>
             <ul class="space-y-[17px]">
               <li class="flex items-center gap-[8px]">
@@ -53,10 +52,26 @@ const UserFooter = () => {
             <ul className="sm:space-y-3 space-y-2">
               <li>
                 <Link
+                  to={"/"}
+                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
                   to={"/about-us"}
                   className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
                 >
-                  Edutics About
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/services"}
+                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
+                >
+                  Services
                 </Link>
               </li>
               <li>
@@ -69,73 +84,10 @@ const UserFooter = () => {
               </li>
               <li>
                 <Link
-                  to={"/blogs"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  Blog & News
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={"/faqs"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  FAQ's
-                </Link>
-              </li>
-              <li>
-                <Link
                   to={"/login"}
                   className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
                 >
                   Login / Register
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="w-full">
-            <h3 className="text-secondaryColor font-semibold sm:text-lg text-base sm:mb-9 mb-4">
-              Main Navigation
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to={"/admission"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  Admission
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={"/search"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  Research
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={"/academics"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  Academics
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={"/student-life"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  Student Life
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={"/conferences"}
-                  className="text-gray-200 sm:text-base text-sm transition-all hover:text-secondaryColor"
-                >
-                  Conferences
                 </Link>
               </li>
             </ul>

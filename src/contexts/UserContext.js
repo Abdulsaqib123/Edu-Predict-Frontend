@@ -10,6 +10,7 @@ export const UserContextProvider = ({ children }) => {
   const [usersList, setUsersList] = useState();
   const [singleUserLoader, setSingleUserLoader] = useState(false);
   const [singleUser, setSingleUser] = useState(null);
+  const [completeSingleUser, setCompleteSingleUser] = useState(null);
 
   const getUsersList = async (query) => {
     setLoading(true);
@@ -115,6 +116,26 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  const getCompleteSingleUser = async (userId) => {
+    setSingleUserLoader(true);
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_ENV}/users/find/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setCompleteSingleUser(res?.data);
+      setSingleUserLoader(false);
+    } catch (err) {
+      console.log(err);
+      errorToast(err?.response?.data.message);
+      setSingleUserLoader(false);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -125,6 +146,8 @@ export const UserContextProvider = ({ children }) => {
         deleteUser,
         updateUser,
         updateProfile,
+        getCompleteSingleUser,
+        completeSingleUser,
         usersList,
         singleUser,
         singleUserLoader,

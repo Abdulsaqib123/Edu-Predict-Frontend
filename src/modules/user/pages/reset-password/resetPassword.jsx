@@ -2,17 +2,17 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../../../contexts/AuthContext";
 import { Helmet } from "react-helmet";
 import { validate } from "email-validator";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 
-const LoginPage = () => {
+const ResetPasswordPage = () => {
+  const { token } = useParams();
   const [formData, setFormData] = useState({
-    email: "",
     password: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const { loading, loginUser } = useContext(AuthContext);
+  const { loading, resetPassword } = useContext(AuthContext);
   const router = useNavigate();
-  const token = localStorage.getItem("token");
+  const st_token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
   const handleInputChange = (e) => {
@@ -22,15 +22,6 @@ const LoginPage = () => {
     let errors = { ...formErrors };
 
     switch (name) {
-      case "email":
-        if (!value.trim()) {
-          errors.email = "Please input your email!";
-        } else if (!validate(value)) {
-          errors.email = "Please input your valid email address!";
-        } else {
-          delete errors.email;
-        }
-        break;
       case "password":
         if (!value.trim()) {
           errors.password = "Please input your password!";
@@ -54,12 +45,6 @@ const LoginPage = () => {
   const handleFormValidation = (data, name = null) => {
     const errors = {};
 
-    if (!data.email) {
-      errors.email = "Please input your email!";
-    } else if (!validate(data.email)) {
-      errors.email = "Please input your valid email address!";
-    }
-
     if (!data.password) {
       errors.password = "Please input your password!";
     } else if (data.password.length < 8) {
@@ -78,66 +63,38 @@ const LoginPage = () => {
     setFormErrors(errors);
     if (Object.keys(errors).length === 0) {
       let tempData = {
-        email: formData.email,
-        password: formData.password,
+        new_password: formData.password,
       };
-      const user = await loginUser(tempData);
+      await resetPassword(tempData, token);
 
-      if (user && user?.role?._id === "67587c8e74cea1767a2e0581") {
-        router("/admin/dashboard");
-      } else if (user && user?.role?._id === "67587c8e74cea1767a2e0582") {
-        router("/teacher/dashboard");
-      } else {
-        router("/dashboard");
-      }
+      router("/");
     }
   };
 
-  if (token && role === "67587c8e74cea1767a2e0583") {
+  if (st_token && role === "67587c8e74cea1767a2e0583") {
     return <Navigate to={"/dashboard"} />;
   }
 
-  if (token && role === "67587c8e74cea1767a2e0581") {
+  if (st_token && role === "67587c8e74cea1767a2e0581") {
     return <Navigate to={"/admin/dashboard"} />;
   }
 
-  if (token && role === "67587c8e74cea1767a2e0582") {
+  if (st_token && role === "67587c8e74cea1767a2e0582") {
     return <Navigate to={"/teacher/dashboard"} />;
   }
 
   return (
     <>
       <Helmet>
-        <title>Edutics - Login</title>
+        <title>Edutics - Reset Password</title>
       </Helmet>
       <div className="flex items-start justify-center w-full sm:py-56 py-28 pb-20 px-5">
         <div className="max-w-xl bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
           <h1 className="text-primaryColor font-bold uppercase sm:text-4xl text-2xl border-b-2 border-primaryColor/55 sm:pb-4 pb-2 sm:mb-6 mb-4">
-            Login Now
+            Reset Password
           </h1>
           <form action="" method="POST" onSubmit={handleFormSubmit}>
             <div className="sm:space-y-8 space-y-4">
-              <div className="form-group">
-                <label
-                  for="email"
-                  className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
-                >
-                  Email
-                </label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
-                  placeholder="Valid Email Address..."
-                  onChange={handleInputChange}
-                />
-                {formErrors.email && (
-                  <span className="text-red-600 text-sm mt-1 inline-block">
-                    {formErrors.email}
-                  </span>
-                )}
-              </div>
               <div className="form-group">
                 <label
                   for="password"
@@ -153,14 +110,6 @@ const LoginPage = () => {
                   placeholder="********"
                   onChange={handleInputChange}
                 />
-                <p className="sm:text-sm text-xs mt-3 text-right">
-                  <Link
-                    to={"/forgot-password"}
-                    className="text-primaryColor font-semibold"
-                  >
-                    Forgot password?
-                  </Link>
-                </p>
                 {formErrors.password && (
                   <span className="text-red-600 text-sm mt-1 inline-block">
                     {formErrors.password}
@@ -193,7 +142,7 @@ const LoginPage = () => {
                   <span class="sr-only">Loading...</span>
                 </div>
               )}
-              {!loading && "Login"}
+              {!loading && "Reset Password"}
             </button>
           </form>
         </div>
@@ -202,4 +151,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ResetPasswordPage;

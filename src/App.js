@@ -35,6 +35,11 @@ import StudentNotificationDetailPage from "./modules/user/pages/dashboard/notifi
 import StudentProfilePage from "./modules/user/pages/dashboard/profile/profile";
 import StudentReportListPage from "./modules/user/pages/dashboard/reports/reportsList";
 import TeacherProfilePage from "./modules/teacher/dashboard/profile/profile";
+import ForgotPasswordPage from "./modules/user/pages/forgot-password/forgotPassword";
+import ResetPasswordPage from "./modules/user/pages/reset-password/resetPassword";
+import AboutUsPage from "./modules/user/pages/about-us/aboutUs";
+import ServicesPage from "./modules/user/pages/services/service";
+import ContactUsPage from "./modules/user/pages/contact-us/contactUs";
 
 function App() {
   return (
@@ -43,6 +48,14 @@ function App() {
         <Route exact path="/" element={<UserLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/about-us" element={<AboutUsPage />} />
+          <Route path="/contact-us" element={<ContactUsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPasswordPage />}
+          />
           {/* <Route path="/create-account" element={<CreateAccountPage />} /> */}
         </Route>
 

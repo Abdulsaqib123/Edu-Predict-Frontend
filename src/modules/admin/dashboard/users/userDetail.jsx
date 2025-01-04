@@ -38,6 +38,22 @@ const AdminUserDetailPage = () => {
             <h3 className="text-base font-normal">{singleUser?.email}</h3>
           </div>
           <div className="space-y-1">
+            <p className="text-primaryColor font-semibold sm:text-lg text-base">
+              Age
+            </p>
+            <h3 className="sm:text-base text-sm font-normal break-words">
+              {singleUser?.age}
+            </h3>
+          </div>
+          <div className="space-y-1">
+            <p className="text-primaryColor font-semibold sm:text-lg text-base">
+              Gender
+            </p>
+            <h3 className="sm:text-base text-sm font-normal break-words">
+              {singleUser?.gender}
+            </h3>
+          </div>
+          <div className="space-y-1">
             <p className="text-primaryColor font-semibold text-lg">
               Created At
             </p>

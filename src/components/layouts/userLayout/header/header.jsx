@@ -5,6 +5,7 @@ const UserHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigation = useNavigate();
   const location = useLocation();
+  const role = localStorage.getItem("role");
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -51,14 +52,6 @@ const UserHeader = () => {
               </li>
               <li>
                 <Link
-                  to={"/blogs"}
-                  className="text-white font-medium text-base hover:text-secondaryColor transition-all mr-6"
-                >
-                  Blogs
-                </Link>
-              </li>
-              <li>
-                <Link
                   to={"/services"}
                   className="text-white font-medium text-base hover:text-secondaryColor transition-all mr-6"
                 >
@@ -75,10 +68,18 @@ const UserHeader = () => {
               </li>
             </ul>
             <Link
-              to={"/login"}
+              to={
+                !role
+                  ? "/login"
+                  : role == "67587c8e74cea1767a2e0581"
+                  ? "/admin/dashboard"
+                  : role == "67587c8e74cea1767a2e0582"
+                  ? "/teacher/dashboard"
+                  : "/dashboard"
+              }
               className="bg-secondaryColor font-bold text-base rounded-[50px] py-2 px-5 uppercase"
             >
-              Login Now
+              {!role ? "Login Now" : "Go To Dashboard"}
             </Link>
           </nav>
 

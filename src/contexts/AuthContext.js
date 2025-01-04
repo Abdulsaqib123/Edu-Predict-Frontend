@@ -27,6 +27,38 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (data) => {
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_ENV}/auth/forgot-password`,
+        data
+      );
+      successToast(res?.data.message);
+      setLoading(false);
+      return res?.data;
+    } catch (err) {
+      errorToast(err?.response?.data.message);
+      setLoading(false);
+    }
+  };
+
+  const resetPassword = async (data, token) => {
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_ENV}/auth/reset-password/${token}`,
+        data
+      );
+      successToast(res?.data.message);
+      setLoading(false);
+      return res?.data;
+    } catch (err) {
+      errorToast(err?.response?.data.message);
+      setLoading(false);
+    }
+  };
+
   const logoutUser = async () => {
     try {
       const res = await axios.post(
@@ -54,6 +86,8 @@ export const AuthContextProvider = ({ children }) => {
         loading,
         loginUser,
         logoutUser,
+        forgotPassword,
+        resetPassword,
       }}
     >
       {children}

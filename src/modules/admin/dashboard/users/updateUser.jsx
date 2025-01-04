@@ -17,28 +17,28 @@ const AdminUpdateUserPage = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const { getUsersList, usersList } = useContext(UserContext);
-  const { updateStudent, loading, getSingleStudent, singleStudent } =
-    useContext(StudentContext);
+  const { updateStudent, loading } = useContext(StudentContext);
+  const { getCompleteSingleUser, completeSingleUser } = useContext(UserContext);
   const navigation = useNavigate();
 
   useEffect(() => {
-    getSingleStudent(id);
+    getCompleteSingleUser(id);
     getUsersList("?role_id=67587c8e74cea1767a2e0582");
   }, []);
 
   useEffect(() => {
-    if (singleStudent) {
+    if (completeSingleUser) {
       setFormData({
-        first_name: singleStudent?.first_name,
-        last_name: singleStudent?.last_name,
-        email: singleStudent?.email,
-        teacher_id: singleStudent?.teacher_id,
-        age: singleStudent?.age,
-        gender: singleStudent?.gender,
+        teacher_id: completeSingleUser?.user?.teacher_id,
+        first_name: completeSingleUser?.user?.first_name,
+        last_name: completeSingleUser?.user?.last_name,
+        age: completeSingleUser?.user?.age,
+        gender: completeSingleUser?.user?.gender,
+        email: completeSingleUser?.user?.email,
       });
-      console.log(singleStudent?.teacher_id);
+      console.log("Complete User : ", completeSingleUser);
     }
-  }, [singleStudent]);
+  }, [completeSingleUser]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

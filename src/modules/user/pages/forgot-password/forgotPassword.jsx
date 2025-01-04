@@ -4,16 +4,14 @@ import { Helmet } from "react-helmet";
 import { validate } from "email-validator";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const ForgotPasswordPage = () => {
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const { loading, loginUser } = useContext(AuthContext);
-  const router = useNavigate();
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
+  const { loading, forgotPassword } = useContext(AuthContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,18 +27,6 @@ const LoginPage = () => {
           errors.email = "Please input your valid email address!";
         } else {
           delete errors.email;
-        }
-        break;
-      case "password":
-        if (!value.trim()) {
-          errors.password = "Please input your password!";
-        } else if (value.length < 8) {
-          errors.password =
-            "Please input you password character greater than 8!";
-        } else if (value.length > 20) {
-          errors.password = "Please input you password character less than 20!";
-        } else {
-          delete errors.password;
         }
         break;
 
@@ -60,14 +46,6 @@ const LoginPage = () => {
       errors.email = "Please input your valid email address!";
     }
 
-    if (!data.password) {
-      errors.password = "Please input your password!";
-    } else if (data.password.length < 8) {
-      errors.password = "Please input you password character greater than 8!";
-    } else if (data.password.length > 20) {
-      errors.password = "Please input you password character less than 20!";
-    }
-
     return errors;
   };
 
@@ -79,17 +57,9 @@ const LoginPage = () => {
     if (Object.keys(errors).length === 0) {
       let tempData = {
         email: formData.email,
-        password: formData.password,
       };
-      const user = await loginUser(tempData);
 
-      if (user && user?.role?._id === "67587c8e74cea1767a2e0581") {
-        router("/admin/dashboard");
-      } else if (user && user?.role?._id === "67587c8e74cea1767a2e0582") {
-        router("/teacher/dashboard");
-      } else {
-        router("/dashboard");
-      }
+      await forgotPassword(tempData);
     }
   };
 
@@ -108,12 +78,12 @@ const LoginPage = () => {
   return (
     <>
       <Helmet>
-        <title>Edutics - Login</title>
+        <title>Edutics - Forgot Password</title>
       </Helmet>
       <div className="flex items-start justify-center w-full sm:py-56 py-28 pb-20 px-5">
         <div className="max-w-xl bg-white w-full shadow-lg sm:p-9 p-6 rounded-lg">
           <h1 className="text-primaryColor font-bold uppercase sm:text-4xl text-2xl border-b-2 border-primaryColor/55 sm:pb-4 pb-2 sm:mb-6 mb-4">
-            Login Now
+            Forgot Password
           </h1>
           <form action="" method="POST" onSubmit={handleFormSubmit}>
             <div className="sm:space-y-8 space-y-4">
@@ -135,35 +105,6 @@ const LoginPage = () => {
                 {formErrors.email && (
                   <span className="text-red-600 text-sm mt-1 inline-block">
                     {formErrors.email}
-                  </span>
-                )}
-              </div>
-              <div className="form-group">
-                <label
-                  for="password"
-                  className="text-black font-normal sm:text-base text-sm sm:mb-2 mb-1 inline-block"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="w-full border-[1px] border-white rounded-md placeholder:text-primaryColor text-black bg-white shadow-md text-sm py-3 px-4 focus:border-primaryColor outline-none"
-                  placeholder="********"
-                  onChange={handleInputChange}
-                />
-                <p className="sm:text-sm text-xs mt-3 text-right">
-                  <Link
-                    to={"/forgot-password"}
-                    className="text-primaryColor font-semibold"
-                  >
-                    Forgot password?
-                  </Link>
-                </p>
-                {formErrors.password && (
-                  <span className="text-red-600 text-sm mt-1 inline-block">
-                    {formErrors.password}
                   </span>
                 )}
               </div>
@@ -193,7 +134,7 @@ const LoginPage = () => {
                   <span class="sr-only">Loading...</span>
                 </div>
               )}
-              {!loading && "Login"}
+              {!loading && "Send Email"}
             </button>
           </form>
         </div>
@@ -202,4 +143,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;
